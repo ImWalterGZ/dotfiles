@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+.env
+
+raycast/
+alacritty/alacritty-theme

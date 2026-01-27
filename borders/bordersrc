@@ -1,0 +1,12 @@
+#!/bin/bash
+
+options=(
+  style=round
+  width=5.0
+  hidpi=on
+  active_color="glow(0xFFB82C3A)"
+  inactive_color=0x66414141
+  blacklist="DaVinci Resolve"
+)
+
+borders "${options[@]}"
