@@ -15,7 +15,30 @@ if [[ -z "${FOCUSED}" ]]; then
   FOCUSED="$(aerospace list-workspaces --focused 2>/dev/null || true)"
 fi
 
-if [[ -n "${TARGET_WORKSPACE}" && "${TARGET_WORKSPACE}" == "${FOCUSED}" ]]; then
+# Determine if this item should be highlighted
+SHOULD_HIGHLIGHT=false
+
+case "${TARGET_WORKSPACE}" in
+  "1"|"2"|"3"|"4")
+    # Direct match for workspaces 1-4
+    if [[ "${TARGET_WORKSPACE}" == "${FOCUSED}" ]]; then
+      SHOULD_HIGHLIGHT=true
+    fi
+    ;;
+  "5")
+    # "Others" workspace - highlight if focused is 5 or higher
+    if [[ -n "${FOCUSED}" ]] && [[ "${FOCUSED}" =~ ^[0-9]+$ ]] && [[ "${FOCUSED}" -ge 5 ]]; then
+      SHOULD_HIGHLIGHT=true
+      # Update the label to show the actual workspace number
+      sketchybar --set "$NAME" label="${FOCUSED}"
+    else
+      # Reset label to "Others" when not in workspace 5+
+      sketchybar --set "$NAME" label="Others"
+    fi
+    ;;
+esac
+
+if [[ "${SHOULD_HIGHLIGHT}" == "true" ]]; then
   sketchybar --set "$NAME" \
     background.drawing=on \
     background.color=0xffE4192A \
@@ -23,6 +46,6 @@ if [[ -n "${TARGET_WORKSPACE}" && "${TARGET_WORKSPACE}" == "${FOCUSED}" ]]; then
 else
   sketchybar --set "$NAME" \
     background.drawing=off \
-    background.color=0x44ffffff \
-    label.color=0xffffffff
+    background.color=0x66494d64 \
+    label.color=0xfff5cad3
 fi

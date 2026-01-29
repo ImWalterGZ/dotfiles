@@ -1,0 +1,211 @@
+#!/usr/bin/env zsh
+
+FONT_FACE="JetBrainsMono Nerd Font"
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
+PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
+
+sketchybar --bar \
+    height=32 \
+    color=0x00000000 \
+    margin=0 \
+    sticky=on \
+    padding_left=23 \
+    padding_right=23 \
+    notch_width=188 \
+    display=main
+
+# Alternatiive background colors
+# label.color=0xffffffff
+# background.color=0x9924273a
+sketchybar --default \
+    background.color=0x665a1f1f \
+    background.corner_radius=5 \
+    background.padding_right=5 \
+    background.height=26 \
+    icon.font="$FONT_FACE:Medium:15.0" \
+    icon.padding_left=5 \
+    icon.padding_right=5 \
+    label.font="$FONT_FACE:Medium:12.0" \
+    label.color=0xfff5cad3 \
+    label.y_offset=0 \
+    label.padding_left=0 \
+    label.padding_right=5
+
+sketchybar --add item media e \
+    --set media \
+    icon=󰝚 \
+    icon.y_offset=1 \
+    icon.font="$FONT_FACE:Bold:20.0" \
+    label.drawing=off \
+    label.padding_left=3 \
+    update_freq=2 \
+    script="$PLUGIN_DIR/media.sh"
+
+sketchybar --add item cursor_git e \
+    --set cursor_git \
+    drawing=off \
+    icon=󰊢 \
+    icon.y_offset=1 \
+    icon.font="$FONT_FACE:Bold:18.0" \
+    label.drawing=on \
+    label.padding_left=6 \
+    update_freq=2 \
+    script="$PLUGIN_SHARED_DIR/cursor_git.sh"
+
+sketchybar --add item appleicon left \
+    --set appleicon \
+    background.corner_radius=5 \
+    icon=\
+    icon.color=0xffE4192A \
+    icon.height=32 \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label.padding_left=5 \
+    label.padding_right=5 \
+    background.padding_right=0
+
+sketchybar --add event aerospace_workspace_change
+
+# Workspace 1: Browser
+sketchybar --add item space.1 left \
+    --subscribe space.1 aerospace_workspace_change \
+    --set space.1 \
+    background.corner_radius=5 \
+    background.height=26 \
+    background.drawing=off \
+    icon=󰖟 \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label="Browser" \
+    label.padding_left=5 \
+    label.padding_right=10 \
+    click_script="aerospace workspace 1" \
+    script="$PLUGIN_SHARED_DIR/aerospace.sh 1"
+
+# Workspace 2: Editor
+sketchybar --add item space.2 left \
+    --subscribe space.2 aerospace_workspace_change \
+    --set space.2 \
+    background.corner_radius=5 \
+    background.height=26 \
+    background.drawing=off \
+    icon=󰅩 \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label="Editor" \
+    label.padding_left=5 \
+    label.padding_right=10 \
+    click_script="aerospace workspace 2" \
+    script="$PLUGIN_SHARED_DIR/aerospace.sh 2"
+
+# Workspace 3: Terminal
+sketchybar --add item space.3 left \
+    --subscribe space.3 aerospace_workspace_change \
+    --set space.3 \
+    background.corner_radius=5 \
+    background.height=26 \
+    background.drawing=off \
+    icon= \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label="Terminal" \
+    label.padding_left=5 \
+    label.padding_right=10 \
+    click_script="aerospace workspace 3" \
+    script="$PLUGIN_SHARED_DIR/aerospace.sh 3"
+
+# Workspace 4: Finder
+sketchybar --add item space.4 left \
+    --subscribe space.4 aerospace_workspace_change \
+    --set space.4 \
+    background.corner_radius=5 \
+    background.height=26 \
+    background.drawing=off \
+    icon=󰀶 \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label="Finder" \
+    label.padding_left=5 \
+    label.padding_right=10 \
+    click_script="aerospace workspace 4" \
+    script="$PLUGIN_SHARED_DIR/aerospace.sh 4"
+
+# Workspace 5+: Others (dynamic label shows focused workspace number)
+sketchybar --add item space.other left \
+    --subscribe space.other aerospace_workspace_change \
+    --set space.other \
+    background.corner_radius=5 \
+    background.height=26 \
+    background.drawing=off \
+    icon=󱥸 \
+    icon.padding_left=10 \
+    icon.padding_right=5 \
+    label="Others" \
+    label.padding_left=5 \
+    label.padding_right=10 \
+    click_script="aerospace workspace 5" \
+    script="$PLUGIN_SHARED_DIR/aerospace.sh other"
+
+sketchybar --add item front_app left \
+    --set front_app \
+    background.color=0xFFB82C3A \
+    background.padding_left=0 \
+    background.padding_right=0 \
+    icon.y_offset=1 \
+    icon.color=0xffffffff \
+    label.drawing=no \
+    script="$PLUGIN_SHARED_DIR/front_app.sh" \
+    --add item front_app.separator left \
+    --set front_app.separator \
+    background.color=0x00000000 \
+    background.padding_left=-3 \
+    icon= \
+    icon.color=0xFFB82C3A \
+    icon.font="$FONT_FACE:Bold:20.0" \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+    icon.y_offset=1 \
+    label.drawing=no \
+    --add item front_app.name left \
+    --set front_app.name \
+    background.color=0x00000000 \
+    background.padding_right=0 \
+    icon.drawing=off \
+    label.font="$FONT_FACE:Bold:12.0" \
+    label.drawing=yes
+
+
+
+sketchybar --add bracket front_app_bracket \
+    front_app \
+    front_app.separator \
+    front_app.name \
+    --subscribe front_app front_app_switched
+
+sketchybar --add item clock right \
+    --set clock \
+    icon=󰃰 \
+    icon.color=0xffed8796 \
+    update_freq=10 \
+    script="$PLUGIN_SHARED_DIR/clock.sh"
+
+sketchybar --add item battery right \
+    --set battery \
+    update_freq=20 \
+    script="$PLUGIN_DIR/battery.sh"
+
+sketchybar --add item volume right \
+    --set volume \
+    icon.color=0xfff2d5cf \
+    label.drawing=true \
+    script="$PLUGIN_SHARED_DIR/volume.sh" \
+    --subscribe volume volume_change
+
+# osascript -e 'quit app "Rectangle"'
+# open -a Rectangle
+
+##### Finalizing Setup #####
+sketchybar --update
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
+sketchybar --trigger space_change
