@@ -6,12 +6,10 @@ set -euo pipefail
 #   ${activeEditorShort}${separator}${activeRepositoryName}${separator}${activeRepositoryBranchName}
 # The default VS Code/Cursor ${separator} is typically " — ".
 
-get_frontmost_app() {
-  osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true' 2>/dev/null || true
-}
-
 get_cursor_window_title() {
-  osascript <<'APPLESCRIPT' 2>/dev/null || true
+  # NOTE: This uses UI scripting. If this returns empty under SketchyBar,
+  # give Accessibility permission to `sketchybar` in System Settings.
+  osascript <<'APPLESCRIPT' 2>&1
 tell application "System Events"
   if not (exists process "Cursor") then return ""
   tell process "Cursor"
@@ -22,9 +20,9 @@ end tell
 APPLESCRIPT
 }
 
-FRONT_APP="$(get_frontmost_app)"
-if [[ "${FRONT_APP}" != "Cursor" ]]; then
-  # We let front_app.sh control drawing; keep output minimal if we're not active.
+# If triggered by front_app_switched, $INFO is the new front app name.
+if [[ "${SENDER:-}" == "front_app_switched" && "${INFO:-}" != "Cursor" ]]; then
+  sketchybar --set "$NAME" label.drawing=off
   exit 0
 fi
 
@@ -59,7 +57,10 @@ LABEL="${LABEL#"${LABEL%%[![:space:]]*}"}"
 LABEL="${LABEL%"${LABEL##*[![:space:]]}"}"
 
 if [[ -z "$LABEL" ]]; then
-  sketchybar --set "$NAME" label.drawing=off
+  # When UI scripting isn't permitted, osascript often yields no title.
+  # Keep the item visible only when Cursor is active (front_app.sh toggles drawing),
+  # but show a hint so it's debuggable.
+  sketchybar --set "$NAME" label="(enable Accessibility for sketchybar)" label.drawing=on
   exit 0
 fi
 

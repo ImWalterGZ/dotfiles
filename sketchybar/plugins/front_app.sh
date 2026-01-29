@@ -80,7 +80,10 @@ sketchybar --set $NAME.name label="$INFO"
 if [[ "$INFO" == "Cursor" ]]; then
   sketchybar --set media drawing=off
   sketchybar --set cursor_git drawing=on
+  sketchybar --set cursor_git update_freq=1
+  sketchybar --trigger cursor_git_update
 else
   sketchybar --set cursor_git drawing=off
+  sketchybar --set cursor_git update_freq=0
   sketchybar --set media drawing=on
 fi

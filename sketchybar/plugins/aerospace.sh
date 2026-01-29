@@ -25,7 +25,7 @@ case "${TARGET_WORKSPACE}" in
       SHOULD_HIGHLIGHT=true
     fi
     ;;
-  "5")
+  "5"|"other")
     # "Others" workspace - highlight if focused is 5 or higher
     if [[ -n "${FOCUSED}" ]] && [[ "${FOCUSED}" =~ ^[0-9]+$ ]] && [[ "${FOCUSED}" -ge 5 ]]; then
       SHOULD_HIGHLIGHT=true
@@ -46,6 +46,6 @@ if [[ "${SHOULD_HIGHLIGHT}" == "true" ]]; then
 else
   sketchybar --set "$NAME" \
     background.drawing=off \
-    background.color=0x66494d64 \
+    background.color=0x665a1f1f \
     label.color=0xfff5cad3
 fi

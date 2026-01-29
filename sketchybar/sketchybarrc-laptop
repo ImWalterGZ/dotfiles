@@ -39,7 +39,7 @@ sketchybar --add item media e \
     icon.font="$FONT_FACE:Bold:20.0" \
     label.drawing=off \
     label.padding_left=3 \
-    update_freq=2 \
+    update_freq=1 \
     script="$PLUGIN_DIR/media.sh"
 
 sketchybar --add item cursor_git e \
@@ -50,7 +50,7 @@ sketchybar --add item cursor_git e \
     icon.font="$FONT_FACE:Bold:18.0" \
     label.drawing=on \
     label.padding_left=6 \
-    update_freq=2 \
+    update_freq=0 \
     script="$PLUGIN_SHARED_DIR/cursor_git.sh"
 
 sketchybar --add item appleicon left \
@@ -66,6 +66,7 @@ sketchybar --add item appleicon left \
     background.padding_right=0
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event cursor_git_update
 
 # Workspace 1: Browser
 sketchybar --add item space.1 left \

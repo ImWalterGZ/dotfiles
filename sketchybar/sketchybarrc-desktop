@@ -29,6 +29,7 @@ sketchybar --default \
     label.padding_right=5
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event cursor_git_update
 
 # Workspace 1: Browser
 sketchybar --add item space.1 left \
@@ -156,7 +157,7 @@ sketchybar --add item cursor_git right \
     icon.y_offset=1 \
     label.drawing=on \
     label.padding_left=6 \
-    update_freq=2 \
+    update_freq=0 \
     script="$PLUGIN_SHARED_DIR/cursor_git.sh"
 
 sketchybar --add item media right \

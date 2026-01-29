@@ -8,9 +8,9 @@ config-version = 2
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0',
+  'exec-and-forget brew services start borders',
   'exec-and-forget sketchybar',
-  'exec-and-forget /Applications/AutoRaise.app'
+  'exec-and-forget open -a AutoRaise'
 ]
 
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -193,4 +193,8 @@ run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.openai.chat'
 run = 'move-node-to-workspace 4'
