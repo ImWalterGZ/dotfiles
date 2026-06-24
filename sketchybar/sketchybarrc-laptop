@@ -34,6 +34,7 @@ sketchybar --default \
 
 sketchybar --add item media e \
     --set media \
+    background.drawing=off \
     icon=󰝚 \
     icon.y_offset=1 \
     icon.font="$FONT_FACE:Bold:20.0" \
@@ -44,6 +45,7 @@ sketchybar --add item media e \
 
 sketchybar --add item cursor_git e \
     --set cursor_git \
+    background.drawing=off \
     drawing=off \
     icon=󰊢 \
     icon.y_offset=1 \
@@ -55,7 +57,7 @@ sketchybar --add item cursor_git e \
 
 sketchybar --add item appleicon left \
     --set appleicon \
-    background.corner_radius=5 \
+    background.drawing=off \
     icon=\
     icon.color=0xffE4192A \
     icon.height=32 \
@@ -132,33 +134,35 @@ sketchybar --add item space.4 left \
     click_script="aerospace workspace 4" \
     script="$PLUGIN_SHARED_DIR/aerospace.sh 4"
 
-# Workspace 5+: Others (dynamic label shows focused workspace number)
-sketchybar --add item space.other left \
-    --subscribe space.other aerospace_workspace_change \
-    --set space.other \
+# Workspace 5: Claude
+sketchybar --add item space.5 left \
+    --subscribe space.5 aerospace_workspace_change \
+    --set space.5 \
     background.corner_radius=5 \
     background.height=26 \
     background.drawing=off \
     icon=󱥸 \
     icon.padding_left=10 \
     icon.padding_right=5 \
-    label="Others" \
+    label="Claude" \
     label.padding_left=5 \
     label.padding_right=10 \
     click_script="aerospace workspace 5" \
-    script="$PLUGIN_SHARED_DIR/aerospace.sh other"
+    script="$PLUGIN_SHARED_DIR/aerospace.sh 5"
 
 sketchybar --add item front_app left \
     --set front_app \
-    background.color=0xFFB82C3A \
+    background.drawing=on \
+    background.color=0x00000000 \
     background.padding_left=0 \
     background.padding_right=0 \
     icon.y_offset=1 \
-    icon.color=0xffffffff \
+    icon.color=0xFFB82C3A \
     label.drawing=no \
     script="$PLUGIN_SHARED_DIR/front_app.sh" \
     --add item front_app.separator left \
     --set front_app.separator \
+    drawing=off \
     background.color=0x00000000 \
     background.padding_left=-3 \
     icon= \
@@ -186,6 +190,7 @@ sketchybar --add bracket front_app_bracket \
 
 sketchybar --add item clock right \
     --set clock \
+    background.drawing=off \
     icon=󰃰 \
     icon.color=0xffed8796 \
     update_freq=10 \
@@ -193,11 +198,13 @@ sketchybar --add item clock right \
 
 sketchybar --add item battery right \
     --set battery \
+    background.drawing=off \
     update_freq=20 \
     script="$PLUGIN_DIR/battery.sh"
 
 sketchybar --add item volume right \
     --set volume \
+    background.drawing=off \
     icon.color=0xfff2d5cf \
     label.drawing=true \
     script="$PLUGIN_SHARED_DIR/volume.sh" \

@@ -19,21 +19,10 @@ fi
 SHOULD_HIGHLIGHT=false
 
 case "${TARGET_WORKSPACE}" in
-  "1"|"2"|"3"|"4")
-    # Direct match for workspaces 1-4
+  "1"|"2"|"3"|"4"|"5")
+    # Direct match for workspaces 1-5
     if [[ "${TARGET_WORKSPACE}" == "${FOCUSED}" ]]; then
       SHOULD_HIGHLIGHT=true
-    fi
-    ;;
-  "5"|"other")
-    # "Others" workspace - highlight if focused is 5 or higher
-    if [[ -n "${FOCUSED}" ]] && [[ "${FOCUSED}" =~ ^[0-9]+$ ]] && [[ "${FOCUSED}" -ge 5 ]]; then
-      SHOULD_HIGHLIGHT=true
-      # Update the label to show the actual workspace number
-      sketchybar --set "$NAME" label="${FOCUSED}"
-    else
-      # Reset label to "Others" when not in workspace 5+
-      sketchybar --set "$NAME" label="Others"
     fi
     ;;
 esac
@@ -46,6 +35,5 @@ if [[ "${SHOULD_HIGHLIGHT}" == "true" ]]; then
 else
   sketchybar --set "$NAME" \
     background.drawing=off \
-    background.color=0x665a1f1f \
     label.color=0xfff5cad3
 fi

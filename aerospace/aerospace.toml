@@ -52,7 +52,23 @@ automatically-unhide-macos-hidden-apps = false
 # even when they are invisible.
 # This config version is only available since 'config-version = 2'
 # Fallback value (if you omit the key): persistent-workspaces = []
-persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "w", "o"]
+
+# Workspace assignments per monitor (dual-monitor setup)
+# BenQ GW2780 = external
+# Built-in Retina Display = internal
+[workspace-to-monitor-force-assignment]
+"1" = "BenQ GW2780"
+"2" = "BenQ GW2780"
+"3" = "Built-in Retina Display"
+"4" = "BenQ GW2780"
+"5" = "BenQ GW2780"
+"6" = "Built-in Retina Display"
+"7" = "Built-in Retina Display"
+"8" = "Built-in Retina Display"
+"9" = "Built-in Retina Display"
+"w" = "Built-in Retina Display"
+"o" = "Built-in Retina Display"
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
@@ -76,7 +92,7 @@ on-mode-changed = []
     inner.vertical =   5
     outer.left =       5
     outer.bottom =     5
-    outer.top =        5
+    outer.top =       [{ monitor."BenQ GW2780" = 36 }, 5]
     outer.right =      5
 
 # 'main' binding mode declaration
@@ -142,6 +158,8 @@ on-mode-changed = []
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
     alt-9 = 'workspace 9'
+    alt-o = 'workspace o'
+    alt-w = 'workspace w'
 
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -154,11 +172,19 @@ on-mode-changed = []
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
     alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-o = 'move-node-to-workspace o'
+    alt-shift-w = 'move-node-to-workspace w'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # Monitor focus / move window between monitors
+    alt-leftSquareBracket = 'focus-monitor --wrap-around prev'
+    alt-rightSquareBracket = 'focus-monitor --wrap-around next'
+    alt-shift-leftSquareBracket = 'move-node-to-monitor --wrap-around prev'
+    alt-shift-rightSquareBracket = 'move-node-to-monitor --wrap-around next'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
@@ -184,11 +210,51 @@ if.app-id = 'company.thebrowser.Browser'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
+if.app-id = 'company.thebrowser.dia'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome.dev'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
 if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.openai.codex'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
@@ -198,3 +264,20 @@ run = 'move-node-to-workspace 4'
 [[on-window-detected]]
 if.app-id = 'com.openai.chat'
 run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = 'move-node-to-workspace w'
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace w'
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace 5'
+
+# Blip: dejar flotante, fuera del tiling
+[[on-window-detected]]
+if.app-id = 'net.blip.macos'
+run = 'layout floating'
